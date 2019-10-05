@@ -27,7 +27,7 @@ def calculate_and_print_income_tax_brackets_and_total(initial_salary):
     print("***** INCOME TAX ******")
     while i <= max_bracket_level:
         if i < max_bracket_level:
-            cur_level_tax = INCOME_TAX_RATES[i] * INCOME_TAX_LIMITS[i][1]
+            cur_level_tax = INCOME_TAX_RATES[i] * (INCOME_TAX_LIMITS[i][1] - INCOME_TAX_LIMITS[i][0])
         else:  # calculate for the last bracket of tax:
             cur_level_tax = INCOME_TAX_RATES[i] * (initial_salary - INCOME_TAX_LIMITS[i][0])
 
@@ -69,8 +69,8 @@ def calculate_and_print_social_security_and_health_tax_brackets_and_total(initia
     print("***** SOCIAL SECURITY AND HEALTH TAX ******")
     while i <= max_bracket_level:
         if i < max_bracket_level:
-            cur_health_level_tax = HEALTH_TAX_RATES[i] * SOCIAL_SECURITY_AND_HEALTH_TAX_LIMITS[i][1]
-            cur_social_security_level_tax = SOCIAL_SECURITY_TAX_RATES[i] * SOCIAL_SECURITY_AND_HEALTH_TAX_LIMITS[i][1]
+            cur_health_level_tax = HEALTH_TAX_RATES[i] * (SOCIAL_SECURITY_AND_HEALTH_TAX_LIMITS[i][1] - SOCIAL_SECURITY_AND_HEALTH_TAX_LIMITS[i][0])
+            cur_social_security_level_tax = SOCIAL_SECURITY_TAX_RATES[i] * (SOCIAL_SECURITY_AND_HEALTH_TAX_LIMITS[i][1] - SOCIAL_SECURITY_AND_HEALTH_TAX_LIMITS[i][0])
         else:  # calculate for the last brackets of tax:
             cur_health_level_tax = HEALTH_TAX_RATES[i] * (taxable_salary - SOCIAL_SECURITY_AND_HEALTH_TAX_LIMITS[i][0])
             cur_social_security_level_tax = SOCIAL_SECURITY_TAX_RATES[i] * (taxable_salary - SOCIAL_SECURITY_AND_HEALTH_TAX_LIMITS[i][0])
