@@ -6,6 +6,8 @@
 # define GLOBALS:
 INCOME_TAX_RATES = [0.1, 0.14, 0.2, 0.31, 0.35, 0.47, 0.5]
 INCOME_TAX_LIMITS = [[0, 6310], [6311, 9050], [9051, 14530], [14531, 20200], [20201, 42030], [42031, 54130], [54130, 1000000]]
+TAX_POINTS = 2.25  # deduction from income tax. Israeli citizen is entitled to have 2.25 Tax Points
+TAX_POINT_VALUE = 218  # worth of one tax point FOR A MONTH, by: https://www.kolzchut.org.il/he/%D7%9E%D7%A1_%D7%94%D7%9B%D7%A0%D7%A1%D7%94
 
 
 def calculate_and_print_income_tax_brackets_and_total(initial_salary):
@@ -33,6 +35,10 @@ def calculate_and_print_income_tax_brackets_and_total(initial_salary):
         total_tax += cur_level_tax
         i += 1
 
+    # reduce tax points value from total tax:
+    print("Substract from Income tax the following Tax Points value:", TAX_POINTS * TAX_POINT_VALUE)
+    total_tax -= (TAX_POINTS * TAX_POINT_VALUE)
+
     print("Total Income Tax deducted:", total_tax)
     print("")
     return total_tax
@@ -56,6 +62,7 @@ def calculate_and_print_social_security_and_health_tax_brackets_and_total(initia
     i = 0
     cur_health_level_tax = 0
     cur_social_security_level_tax = 0
+
     health_total_tax = 0
     social_securiy_total_tax = 0
 
@@ -89,10 +96,14 @@ def main():
     total_tax = 0
     total_tax += calculate_and_print_income_tax_brackets_and_total(initial_salary)
     total_tax += calculate_and_print_social_security_and_health_tax_brackets_and_total(initial_salary)
+
+    net_salary = initial_salary - total_tax
+    net_salary_precentage = (net_salary * 100) / initial_salary
+
     print("Toal tax deducted:", total_tax)
-    print("Net Income is:", initial_salary - total_tax)
+    print("Net Income is:", initial_salary - total_tax, "Precentage of Gross Income:", str(net_salary_precentage)+"%")
 
 
-# call main function:
+# call main function with cli command: "py main.py":
 if __name__ == "__main__":
     main()
