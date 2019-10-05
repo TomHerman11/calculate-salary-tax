@@ -16,7 +16,7 @@ def calculate_and_print_income_tax_brackets_and_total(initial_salary):
     # can use binary search to find the max bracket for the salary
     # fix size of brackets - 7. will go over brackets by iterations.
     max_bracket_level = 0
-    while INCOME_TAX_LIMITS[max_bracket_level][1] <= initial_salary:
+    while INCOME_TAX_LIMITS[max_bracket_level][1] < initial_salary:
         max_bracket_level += 1
 
     # start calculate tax amounts:
